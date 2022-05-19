@@ -261,11 +261,15 @@
                                     },
                                     "parent_id": {
                                         "type": "string",
-                                        "example": ""
+                                        "example": "1"
                                     },
                                     "is_active": {
-                                        "type": "string",
-                                        "example": ""
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "show_in_menu": {
+                                        "type": "number",
+                                        "example": "1"
                                     },
                                     "image": {
                                         "description": "file to upload",
