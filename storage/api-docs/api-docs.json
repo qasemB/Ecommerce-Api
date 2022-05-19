@@ -366,33 +366,36 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "add one category",
+                    "description": "edit category",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "title"
-                                ],
                                 "properties": {
                                     "title": {
-                                        "type": "string",
-                                        "example": "category test"
+                                        "type": "string"
                                     },
                                     "descriptions": {
-                                        "type": "string",
-                                        "example": "description text ..."
+                                        "type": "string"
                                     },
                                     "parent_id": {
-                                        "type": "string",
-                                        "example": ""
+                                        "type": "number"
+                                    },
+                                    "show_in_menu": {
+                                        "type": "number"
                                     },
                                     "is_active": {
-                                        "type": "string",
-                                        "example": ""
+                                        "type": "number"
                                     }
                                 },
                                 "type": "object"
+                            },
+                            "example": {
+                                "title": "example title",
+                                "descriptions": "",
+                                "parent_id": "",
+                                "is_active": 1,
+                                "show_in_menu": 1
                             }
                         }
                     }

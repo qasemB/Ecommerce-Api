@@ -216,16 +216,23 @@ class CategoryController extends Controller
      *  ),
      *  @OA\RequestBody(
      *      required=true,
-     *      description="add one category",
+     *      description="edit category",
      *      @OA\MediaType(
      *          mediaType="application/json",
      *          @OA\Schema(
-     *              required={"title"},
-     *              @OA\Property(property="title", type="string",  example="category test"),
-     *              @OA\Property(property="descriptions", type="string",  example="description text ..."),
-     *              @OA\Property(property="parent_id", type="string",  example=""),
-     *              @OA\Property(property="is_active", type="string", example=""),
-     *          )
+     *              @OA\Property(property="title", type="string"),
+     *              @OA\Property(property="descriptions", type="string"),
+     *              @OA\Property(property="parent_id", type="number"),
+     *              @OA\Property(property="show_in_menu", type="number"),
+     *              @OA\Property(property="is_active", type="number"),
+     *          ),
+     *        example={
+     *          "title" : "example title",
+     *          "descriptions" : "",
+     *          "parent_id" : "",
+     *          "is_active" : 1,
+     *          "show_in_menu" : 1
+     *        }
      *      ),
      * ),
      * @OA\Response(
@@ -243,8 +250,9 @@ class CategoryController extends Controller
             'title' => 'required|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/' ,
             'descriptions' => 'nullable|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/' ,
             'parent_id ' => 'nullable|numeric' ,
+            'show_in_menu ' => 'nullable|numeric' ,
             'image' => 'nullable|image|max:500' ,
-            'is_active' => 'boolean' ,
+            'is_active' => 'nullable|numeric' ,
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors() , 202);
@@ -258,6 +266,7 @@ class CategoryController extends Controller
             $category->descriptions = $request['descriptions'];
             $category->parent_id = $request['parent_id'];
             $category->is_active = $request['is_active'];
+            $category->show_in_menu = $request['show_in_menu'];
 
             if ($request->file('image')) {
                 $imagePath = $request->file('image')->store('public/categories');
