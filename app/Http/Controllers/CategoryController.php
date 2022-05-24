@@ -107,12 +107,12 @@ class CategoryController extends Controller
                 'parent_id ' => 'nullable|numeric' ,
                 'show_in_menu ' => 'nullable|numeric' ,
                 'image' => 'nullable|image|max:500' ,
-                'is_active' => 'boolean' ,
+                'is_active' => 'numeric' ,
             ]);
 
 
             if ($validator->fails()) {
-                return response()->json($validator->errors());
+                return response()->json($validator->errors(), 202);
             }
             $category = new Category;
             $category->title = $request['title'];
