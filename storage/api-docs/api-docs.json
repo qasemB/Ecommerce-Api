@@ -465,6 +465,124 @@
                     }
                 ]
             }
+        },
+        "/api/admin/categories/{categoryId}/attributes": {
+            "get": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "category attributes",
+                "description": "get all attributes for specific category",
+                "operationId": "allCategoryAttributes",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Add attribute",
+                "description": "Store one Attribute for specific category",
+                "operationId": "addCategoryAttribute",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Add one attribute for spcific category",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "unit",
+                                    "in_filter"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "description text ..."
+                                    },
+                                    "unit": {
+                                        "type": "string",
+                                        "example": "عدد"
+                                    },
+                                    "in_filter": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{id: ..., ...}"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "suucess..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -478,11 +596,15 @@
     "tags": [
         {
             "name": "Auth",
-            "description": "user authentication"
+            "description": "User authentication"
         },
         {
             "name": "Categories",
-            "description": "product categories"
+            "description": "Product categories"
+        },
+        {
+            "name": "Attributes",
+            "description": "Category attributes"
         }
     ],
     "security": [
