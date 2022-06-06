@@ -42,6 +42,9 @@ Route::group(['prefix'=>'admin'] , function(){
 
         Route::get('categories/{categoryId}/attributes','PropertyController@index');
         Route::post('categories/{categoryId}/attributes','PropertyController@store');
+        Route::get('categories/attributes/{id}','PropertyController@show');
+        Route::put('categories/attributes/{id}','PropertyController@update');
+        Route::delete('categories/attributes/{id}','PropertyController@destroy');
 
     });
 

@@ -469,9 +469,9 @@
         "/api/admin/categories/{categoryId}/attributes": {
             "get": {
                 "tags": [
-                    "Attributes"
+                    "Category Attributes"
                 ],
-                "summary": "category attributes",
+                "summary": "Category attributes",
                 "description": "get all attributes for specific category",
                 "operationId": "allCategoryAttributes",
                 "parameters": [
@@ -510,7 +510,7 @@
             },
             "post": {
                 "tags": [
-                    "Attributes"
+                    "Category Attributes"
                 ],
                 "summary": "Add attribute",
                 "description": "Store one Attribute for specific category",
@@ -583,6 +583,158 @@
                     }
                 ]
             }
+        },
+        "/api/admin/categories/attributes/{id}": {
+            "get": {
+                "tags": [
+                    "Category Attributes"
+                ],
+                "summary": "Get one attribute",
+                "description": "Get one attribute with id",
+                "operationId": "oneAttribute",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Category Attributes"
+                ],
+                "summary": "Edit category attributes ",
+                "description": "Edit one attributes",
+                "operationId": "editAttribute",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "edit attribute",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "unit": {
+                                        "type": "string"
+                                    },
+                                    "in_filter": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "title": "example title edited",
+                                "unit": "عدد",
+                                "in_filter": "1"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Category Attributes"
+                ],
+                "summary": "Delete category attribute",
+                "description": "Delete one category attribute",
+                "operationId": "deleteCategoryAttr",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -603,7 +755,7 @@
             "description": "Product categories"
         },
         {
-            "name": "Attributes",
+            "name": "Category Attributes",
             "description": "Category attributes"
         }
     ],

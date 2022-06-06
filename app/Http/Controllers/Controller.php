@@ -27,7 +27,7 @@ use Illuminate\Routing\Controller as BaseController;
  *         description="Product categories"
  *    )
  *    @OA\Tag(
- *         name="Attributes",
+ *         name="Category Attributes",
  *         description="Category attributes"
  *    )
  */
