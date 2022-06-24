@@ -192,6 +192,259 @@
                 ]
             }
         },
+        "/api/admin/brands": {
+            "get": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Get all brands",
+                "description": "Get all brands",
+                "operationId": "allBrands",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Add brand",
+                "description": "Store one brand",
+                "operationId": "addBrand",
+                "requestBody": {
+                    "description": "Add one brand",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "original_name"
+                                ],
+                                "properties": {
+                                    "original_name": {
+                                        "type": "string",
+                                        "example": "example name"
+                                    },
+                                    "persian_name": {
+                                        "type": "string",
+                                        "example": "نام تست"
+                                    },
+                                    "descriptions": {
+                                        "type": "string",
+                                        "example": "example description"
+                                    },
+                                    "logo": {
+                                        "description": "file to upload",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/brands/{id}": {
+            "get": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Get one brand",
+                "description": "Get one brand with id",
+                "operationId": "oneBrand",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Update brand",
+                "description": "Edit one brand",
+                "operationId": "editBrand",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Edit one brand",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "original_name"
+                                ],
+                                "properties": {
+                                    "original_name": {
+                                        "type": "string",
+                                        "example": "example name"
+                                    },
+                                    "persian_name": {
+                                        "type": "string",
+                                        "example": "نام تست"
+                                    },
+                                    "descriptions": {
+                                        "type": "string",
+                                        "example": "example description"
+                                    },
+                                    "logo": {
+                                        "description": "file to upload",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Delete brand",
+                "description": "Delete one brand",
+                "operationId": "deleteBrend",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "حذف با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/categories": {
             "get": {
                 "tags": [
@@ -288,9 +541,9 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "title": {
+                                        "data": {
                                             "type": "string",
-                                            "example": "bsgdjkdwd54sfdsf6d54f6..."
+                                            "example": "[{}, {}]"
                                         }
                                     },
                                     "type": "object"
@@ -451,6 +704,646 @@
                                         "message": {
                                             "type": "string",
                                             "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/colors": {
+            "get": {
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Get all colors",
+                "description": "Get all colors",
+                "operationId": "allColors",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Add Color",
+                "description": "Store one color",
+                "operationId": "addColor",
+                "requestBody": {
+                    "description": "Add one color",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "code"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "white"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "example": "#ffffff"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/colors/{id}": {
+            "get": {
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Get one color",
+                "description": "Get one color with id",
+                "operationId": "oneColor",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Edit color",
+                "description": "Edit one color",
+                "operationId": "editColor",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Edit color",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "title": "Edited title",
+                                "code": "#ffffff"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "ویرایش با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Delete color",
+                "description": "Delete one color",
+                "operationId": "deleteColor",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/guarantees": {
+            "get": {
+                "tags": [
+                    "Guarantees"
+                ],
+                "summary": "Get all guarantees",
+                "description": "Get all guarantees",
+                "operationId": "allGuarantees",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{...}, {...}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Guarantees"
+                ],
+                "summary": "Add Guarantee",
+                "description": "Store one guarantee",
+                "operationId": "addGuarantee",
+                "requestBody": {
+                    "description": "Add one guarantee",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "test guarantee"
+                                    },
+                                    "descriptions": {
+                                        "type": "string",
+                                        "example": "some description about this record..."
+                                    },
+                                    "length": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "length_unit": {
+                                        "type": "string",
+                                        "example": "year"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/guarantees/{id}": {
+            "get": {
+                "tags": [
+                    "Guarantees"
+                ],
+                "summary": "Get one guarantee",
+                "description": "Get one guarantee with id",
+                "operationId": "oneGuarantee",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Guarantees"
+                ],
+                "summary": "Edit guarantee",
+                "description": "Edit one guarantee",
+                "operationId": "editGuarantee",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Edit guarantee",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "descriptions": {
+                                        "type": "string"
+                                    },
+                                    "length": {
+                                        "type": "number"
+                                    },
+                                    "length_unit": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "title": "Edited title",
+                                "descriptions": "Edited description",
+                                "length": "10",
+                                "length_unit": "month"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{...}"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "ویرایش با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Guarantees"
+                ],
+                "summary": "Delete guarantee",
+                "description": "Delete one guarantee",
+                "operationId": "deleteGuarantee",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "حذف با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get products",
+                "description": "get all products or with pagination",
+                "operationId": "getProducts",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Add product",
+                "description": "store one product",
+                "operationId": "addProduct",
+                "requestBody": {
+                    "description": "add one category",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "product test"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "example": "1500"
+                                    },
+                                    "weight": {
+                                        "type": "string",
+                                        "example": "2"
+                                    },
+                                    "brand_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "descriptions": {
+                                        "type": "string",
+                                        "example": "Description test for this product..."
+                                    },
+                                    "short_descriptions": {
+                                        "type": "string",
+                                        "example": "Description test for this product..."
+                                    },
+                                    "cart_descriptions": {
+                                        "type": "string",
+                                        "example": "Description test for this product when user selcted it in cart..."
+                                    },
+                                    "image": {
+                                        "description": "file to upload",
+                                        "type": "file"
+                                    },
+                                    "alt_image": {
+                                        "type": "string",
+                                        "example": "Some keyword"
+                                    },
+                                    "keywords": {
+                                        "type": "string",
+                                        "example": "keyword1-keyword2-keyword3"
+                                    },
+                                    "stock": {
+                                        "type": "number",
+                                        "example": "keyword1-keyword2-keyword3"
+                                    },
+                                    "discount": {
+                                        "type": "number",
+                                        "example": "10"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
                                         }
                                     },
                                     "type": "object"
@@ -748,15 +1641,31 @@
     "tags": [
         {
             "name": "Auth",
-            "description": "User authentication"
+            "description": "User authentication Actions"
         },
         {
             "name": "Categories",
-            "description": "Product categories"
+            "description": "Product categories Actions"
         },
         {
             "name": "Category Attributes",
-            "description": "Category attributes"
+            "description": "Category attributes Actions"
+        },
+        {
+            "name": "Products",
+            "description": "Products Actions"
+        },
+        {
+            "name": "Colors",
+            "description": "Colors Actions"
+        },
+        {
+            "name": "Brands",
+            "description": "Brands Actions"
+        },
+        {
+            "name": "Guarantees",
+            "description": "Guarantees Actions"
         }
     ],
     "security": [

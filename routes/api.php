@@ -46,6 +46,26 @@ Route::group(['prefix'=>'admin'] , function(){
         Route::put('categories/attributes/{id}','PropertyController@update');
         Route::delete('categories/attributes/{id}','PropertyController@destroy');
 
+        Route::get('products','ProductController@index');
+        Route::post('products','ProductController@store');
+
+        Route::get('colors','ColorController@index');
+        Route::post('colors','ColorController@store');
+        Route::get('colors/{id}','ColorController@show');
+        Route::put('colors/{id}','ColorController@update');
+        Route::delete('colors/{id}','ColorController@destroy');
+
+        Route::get('brands','BrandController@index');
+        Route::post('brands','BrandController@store');
+        Route::get('brands/{id}','BrandController@show');
+        Route::post('brands/{id}','BrandController@update');
+        Route::delete('brands/{id}','BrandController@destroy');
+
+        Route::get('guarantees','GuaranteeController@index');
+        Route::post('guarantees','GuaranteeController@store');
+        Route::get('guarantees/{id}','GuaranteeController@show');
+        Route::put('guarantees/{id}','GuaranteeController@update');
+        Route::delete('guarantees/{id}','GuaranteeController@destroy');
     });
 
 });

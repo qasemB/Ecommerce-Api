@@ -20,15 +20,31 @@ use Illuminate\Routing\Controller as BaseController;
  *     )
  *     @OA\Tag(
  *         name="Auth",
- *         description="User authentication"
+ *         description="User authentication Actions"
  *    )
  *    @OA\Tag(
  *         name="Categories",
- *         description="Product categories"
+ *         description="Product categories Actions"
  *    )
  *    @OA\Tag(
  *         name="Category Attributes",
- *         description="Category attributes"
+ *         description="Category attributes Actions"
+ *    )
+ *    @OA\Tag(
+ *         name="Products",
+ *         description="Products Actions"
+ *    )
+ *    @OA\Tag(
+ *         name="Colors",
+ *         description="Colors Actions"
+ *    )
+ *    @OA\Tag(
+ *         name="Brands",
+ *         description="Brands Actions"
+ *    )
+ *    @OA\Tag(
+ *         name="Guarantees",
+ *         description="Guarantees Actions"
  *    )
  */
 class Controller extends BaseController

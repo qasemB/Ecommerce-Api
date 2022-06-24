@@ -15,10 +15,12 @@
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.rnd" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.styleci.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PropertyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PropertyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_12_03_074132_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_12_03_074132_create_products_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/fa/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/fa/validation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
@@ -268,6 +270,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -446,7 +449,15 @@
       <workItem from="1651424418599" duration="1778000" />
       <workItem from="1654405942662" duration="282000" />
       <workItem from="1654406813621" duration="13350000" />
-      <workItem from="1654502041858" duration="5388000" />
+      <workItem from="1654502041858" duration="6077000" />
+      <workItem from="1654884033544" duration="866000" />
+      <workItem from="1654888734230" duration="1394000" />
+      <workItem from="1655146353343" duration="3436000" />
+      <workItem from="1655222246901" duration="5147000" />
+      <workItem from="1655371970605" duration="7893000" />
+      <workItem from="1655446281772" duration="7479000" />
+      <workItem from="1656013935993" duration="829000" />
+      <workItem from="1656091433130" duration="293000" />
     </task>
     <servers />
   </component>

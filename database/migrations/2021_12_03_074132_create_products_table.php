@@ -16,16 +16,16 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('price');
-            $table->string('weight')->nullable();
-            $table->bigInteger('brand_id')->unsigned()->index();
+            $table->integer('price');
+            $table->float('weight')->nullable();
+            $table->bigInteger('brand_id')->nullable()->unsigned()->index();
             $table->text('descriptions')->nullable();
             $table->text('short_descriptions')->nullable();
             $table->text('cart_descriptions')->nullable();
             $table->text('image')->nullable();
             $table->string('alt_image')->nullable();
             $table->text('keywords')->nullable();
-            $table->string('stock')->nullable();
+            $table->integer('stock')->nullable();
             $table->integer('discount')->nullable();
             $table->timestamp('start_special_at')->nullable();
             $table->timestamp('end_special_at')->nullable();

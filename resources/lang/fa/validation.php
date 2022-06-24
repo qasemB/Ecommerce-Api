@@ -247,5 +247,9 @@ return [
         'is_active'                           => 'وضعیت فعال',
         'unit'                           => 'واحد',
         'in_filter'                           => 'نمایش در فیلتر',
+        'original_name'    => 'عنوان لاتین',
+        'persian_name'    => 'عنوان فارسی',
+        'descriptions'    => 'توضیحات',
+        'logo'      =>        'آرم',
     ],
 ];

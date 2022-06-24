@@ -93,7 +93,7 @@ class CategoryController extends Controller
      *    response=201,
      *    description="success",
      *    @OA\JsonContent(
-     *       @OA\Property(property="title", type="string", example="bsgdjkdwd54sfdsf6d54f6..."),
+     *       @OA\Property(property="data", type="string", example="[{}, {}]"),
      *        )
      *     )
      * )
