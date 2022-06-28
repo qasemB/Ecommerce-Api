@@ -93,10 +93,12 @@ class BrandController extends Controller
             $brand->descriptions = $request['descriptions'];
 
             if ($request->file('logo')) {
-                $imagePath = $request->file('logo')->store('public/brands');
-                $imagePath = explode('/',$imagePath);
-                $imagePath[0] = 'storage';
-                $brand->logo = join('/' , $imagePath);
+                $imgpath = Storage::disk('public')->put('images/brands', $request->file('logo'));
+                // $imagePath = $request->file('logo')->store('public/brands');
+                // $imagePath = explode('/',$imagePath);
+                // $imagePath[0] = 'storage';
+                // $brand->logo = join('/' , $imagePath);
+                $brand->logo = $imgpath;
             }
 
             $brand->save();
