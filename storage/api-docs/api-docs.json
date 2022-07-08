@@ -1236,6 +1236,14 @@
                         "schema": {
                             "type": "number"
                         }
+                    },
+                    {
+                        "name": "searchChar",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {

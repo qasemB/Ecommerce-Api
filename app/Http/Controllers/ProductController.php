@@ -37,6 +37,12 @@ class ProductController extends Controller
      *      required=false,
      *      @OA\Schema(type="number")
      *  ),
+     *  @OA\Parameter(
+     *      in="query",
+     *      name="searchChar",
+     *      required=false,
+     *      @OA\Schema(type="string")
+     *  ),
      *  @OA\Response(
      *    response=200,
      *    description="success",
@@ -50,14 +56,21 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $page = $request->input("page");
+        $page = (int) $request->input("page");
+        $searchChar = $request->input("searchChar") ?  $request->input("searchChar") : "";
+        $validator = Validator::make(['searchChar'=>$searchChar] , [
+            'searchChar' => 'nullable|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
         if (isset($page)) {
-            $count = $request->input("count");
+            $count = (int) $request->input("count");
             $countInPAge = isset($count) ? $count : 10;
-            $products = Product::with('categories', 'colors', 'guarantees')->paginate($countInPAge);
+            $products = Product::with('categories', 'colors', 'guarantees')->where("title", "like", "%$searchChar%")->paginate($countInPAge);
             return response()->json($products, 200);
         }
-        $products = Product::with('categories', 'colors', 'guarantees')->get();
+        $products = Product::with('categories', 'colors', 'guarantees')->where("title", "like", "%$searchChar%")->get();
         $productsCount = sizeof($products);
         return response()->json([
             'data' => $products,
