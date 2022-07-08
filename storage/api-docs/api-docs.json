@@ -1276,10 +1276,15 @@
                         "multipart/form-data": {
                             "schema": {
                                 "required": [
+                                    "category_ids",
                                     "title",
                                     "price"
                                 ],
                                 "properties": {
+                                    "category_ids": {
+                                        "type": "string",
+                                        "example": "1-2-3"
+                                    },
                                     "title": {
                                         "type": "string",
                                         "example": "product test"
@@ -1295,6 +1300,14 @@
                                     "brand_id": {
                                         "type": "number",
                                         "example": "1"
+                                    },
+                                    "color_ids": {
+                                        "type": "string",
+                                        "example": "1-2-3"
+                                    },
+                                    "guarantee_ids": {
+                                        "type": "string",
+                                        "example": "1-2-3"
                                     },
                                     "descriptions": {
                                         "type": "string",
@@ -1322,7 +1335,7 @@
                                     },
                                     "stock": {
                                         "type": "number",
-                                        "example": "keyword1-keyword2-keyword3"
+                                        "example": "10"
                                     },
                                     "discount": {
                                         "type": "number",
@@ -1344,6 +1357,233 @@
                                         "data": {
                                             "type": "string",
                                             "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/products/{id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get one product",
+                "description": "Get one product with id",
+                "operationId": "oneProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Edit product",
+                "description": "Edit one product",
+                "operationId": "editProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "edit category",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number"
+                                    },
+                                    "weight": {
+                                        "type": "string"
+                                    },
+                                    "brand_id": {
+                                        "type": "number"
+                                    },
+                                    "descriptions": {
+                                        "type": "string"
+                                    },
+                                    "short_descriptions": {
+                                        "type": "string"
+                                    },
+                                    "cart_descriptions": {
+                                        "type": "string"
+                                    },
+                                    "alt_image": {
+                                        "type": "string"
+                                    },
+                                    "keywords": {
+                                        "type": "string"
+                                    },
+                                    "stock": {
+                                        "type": "number"
+                                    },
+                                    "discount": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "title": "example title edited",
+                                "price": "2000",
+                                "weight": "2",
+                                "brand_id": "15",
+                                "descriptions": "edited description...",
+                                "short_descriptions": "edited short descriptions...",
+                                "cart_descriptions": "edited cart descriptions...",
+                                "alt_image": "edited alt image",
+                                "keywords": "edited keywords1-edited keywords2",
+                                "stock": "5",
+                                "discount": "50"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Delete product",
+                "description": "Delete one product",
+                "operationId": "deleteProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "حذف با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/products/titleisexist/{title}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Is exist product title",
+                "description": "Get status of product existation",
+                "operationId": "productTitleExist",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{}"
                                         }
                                     },
                                     "type": "object"
