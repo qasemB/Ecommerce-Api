@@ -235,7 +235,7 @@ class ProductController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/api/admin/products/titleisexist/{title}",
+     *      path="/api/admin/products/title_is_exist/{title}",
      *      summary="Is exist product title",
      *      description="Get status of product existation",
      *      operationId="productTitleExist",

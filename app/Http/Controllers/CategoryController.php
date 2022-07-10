@@ -6,6 +6,8 @@ use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -123,10 +125,8 @@ class CategoryController extends Controller
             $category->show_in_menu = $request['show_in_menu'];
 
             if ($request->file('image')) {
-                $imagePath = $request->file('image')->store('public/categories');
-                $imagePath = explode('/',$imagePath);
-                $imagePath[0] = 'storage';
-                $category->image = join('/' , $imagePath);
+                $imgpath = Storage::disk('public')->put('images/categories', $request->file('image'));
+                $category->image = $imgpath;
             }
 
             $category->save();
@@ -326,6 +326,9 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         try {
+            $category = Category::find($id);
+            $imagePath = $category->image;
+            if (isset($imagePath) && File::exists($imagePath)) File::delete($imagePath);
             Category::destroy($id);
             return response()->json([
                 'message' => 'گروه با موفقیت حذف شد'

@@ -49,7 +49,7 @@ Route::group(['prefix'=>'admin'] , function(){
         Route::get('products','ProductController@index');
         Route::post('products','ProductController@store');
         Route::get('products/{id}','ProductController@show');
-        Route::get('products/titleisexist/{title}','ProductController@titleIsExist');
+        Route::get('products/title_is_exist/{title}','ProductController@titleIsExist');
         Route::put('products/{id}','ProductController@update');
         Route::delete('products/{id}','ProductController@destroy');
 
