@@ -1564,7 +1564,7 @@
                 ]
             }
         },
-        "/api/admin/products/titleisexist/{title}": {
+        "/api/admin/products/title_is_exist/{title}": {
             "get": {
                 "tags": [
                     "Products"

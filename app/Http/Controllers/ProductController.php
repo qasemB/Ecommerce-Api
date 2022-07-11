@@ -171,12 +171,10 @@ class ProductController extends Controller
             $imgpath = Storage::disk('public')->put("images/products/$product->id", $request->file('image'));
             $product->image = $imgpath;
         }
-
-        if (isset($request['color_ids'])) {
+        if ($request['color_ids']) {
             $product->colors()->attach(explode("-", $request['color_ids']));
         }
-
-        if (isset($request['guarantee_ids'])) {
+        if ($request['guarantee_ids']) {
             $product->guarantees()->attach(explode("-", $request['guarantee_ids']));
         }
 
