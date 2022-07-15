@@ -64,7 +64,7 @@ class ProductController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 202);
         }
-        if (isset($page)) {
+        if ($page) {
             $count = (int) $request->input("count");
             $countInPAge = isset($count) ? $count : 10;
             $products = Product::with('categories', 'colors', 'guarantees')->where("title", "like", "%$searchChar%")->paginate($countInPAge);
