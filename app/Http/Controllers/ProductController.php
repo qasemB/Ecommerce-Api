@@ -337,6 +337,9 @@ class ProductController extends Controller
     public function update(Request $request, int $id)
     {
         $validator = Validator::make($request->all() , [
+            'category_ids' => 'required|regex:/^[0-9\s-]+$/',
+            'color_ids' => 'nullable|regex:/^[0-9\s-]+$/',
+            'guarantee_ids' => 'nullable|regex:/^[0-9-\s]+$/',
             'title' => 'required|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/',
             'price' => 'required|numeric',
             'weight' => 'nullable|regex:/^[0-9.\s]+$/',
@@ -368,12 +371,23 @@ class ProductController extends Controller
         $product->stock = $request['stock'];
         $product->discount = $request['discount'];
 
+
+        $product->categories()->sync(explode("-", $request['category_ids']), true);
+
+        if ($request['color_ids']) {
+            $product->colors()->sync(explode("-", $request['color_ids']), true);
+        }
+        if ($request['guarantee_ids']) {
+            $product->guarantees()->sync(explode("-", $request['guarantee_ids']), true);
+        }
+
+
         $product->save();
 
         return response()->json([
             'data'=> $product,
             'message' => 'محصول با موفقیت ویرایش شد'
-        ] , 201);
+        ] , 200);
     }
 
     /**
