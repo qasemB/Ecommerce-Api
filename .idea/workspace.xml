@@ -16,6 +16,7 @@
       <change beforePath="$PROJECT_DIR$/../.rnd" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.styleci.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/Console/Kernel.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/Exceptions/Handler.php" beforeDir="false" />
@@ -455,6 +456,8 @@
       <workItem from="1656268838460" duration="15000" />
       <workItem from="1656268870950" duration="11000" />
       <workItem from="1656339419547" duration="3000" />
+      <workItem from="1659271023861" duration="485000" />
+      <workItem from="1659595706876" duration="4088000" />
     </task>
     <servers />
   </component>

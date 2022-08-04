@@ -325,18 +325,14 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $category = Category::find($id);
-            $imagePath = $category->image;
-            if (isset($imagePath) && File::exists($imagePath)) File::delete($imagePath);
-            Category::destroy($id);
-            return response()->json([
-                'message' => 'گروه با موفقیت حذف شد'
-            ] , 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'message' => $th
-            ] , 500);
-        }
+        $category = Category::with('products')->where('id', $id)->first();
+        $imagePath = $category->image;
+        if (isset($imagePath) && File::exists($imagePath)) File::delete($imagePath);
+        $category->products()->delete();
+        $category->delete();
+        $category->save();
+        return response()->json([
+            'message' => 'گروه با موفقیت حذف شد'
+        ] , 200);
     }
 }
