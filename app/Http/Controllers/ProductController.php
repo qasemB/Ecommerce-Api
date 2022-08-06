@@ -54,7 +54,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $page = (int) $request->input("page");
         $searchChar = $request->input("searchChar") ?  $request->input("searchChar") : "";
@@ -126,7 +126,7 @@ class ProductController extends Controller
      *     )
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all() , [
             'category_ids' => 'required|regex:/^[0-9\s-]+$/',
@@ -215,7 +215,7 @@ class ProductController extends Controller
      *  )
      * )
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
         $product = Product::with('categories', 'colors', 'guarantees')->find((int)$id);
         if ($product) {
@@ -254,7 +254,7 @@ class ProductController extends Controller
      *  )
      * )
      */
-    public function titleIsExist($title)
+    public function titleIsExist($title): JsonResponse
     {
         $validator = Validator::make(['title'=>$title] , [
             'title' => 'required|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/',
@@ -334,7 +334,7 @@ class ProductController extends Controller
      * )
      */
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $validator = Validator::make($request->all() , [
             'category_ids' => 'required|regex:/^[0-9\s-]+$/',
@@ -419,7 +419,7 @@ class ProductController extends Controller
      *     )
      * )
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         $product = Product::find($id);
         $imagePath = $product->image;
@@ -429,4 +429,68 @@ class ProductController extends Controller
             'message' => 'محصول با موفقیت حذف شد'
         ] , 200);
     }
+
+    /**
+     * @OA\Post(
+     * path="/api/admin/products/{id}/add_attr",
+     * summary="Add product Attributes",
+     * description="Add multiple attribute for one product",
+     * operationId="productAttr",
+     * tags={"Products"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     *  @OA\RequestBody(
+     *      required=true,
+     *      description="edit category",
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              @OA\Property(property="1", type="string"),
+     *              @OA\Property(property="2", type="string"),
+     *              @OA\Property(property="3", type="string"),
+     *          ),
+     *        example={
+     *          "1" : {"value": "test1"},
+     *          "2" : {"value": "test2"},
+     *          "3" : {"value": "test3"},
+     *        }
+     *      ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="عملیت با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
+    public function addAttr(Request $request, int $id): JsonResponse
+    {
+        $validator = Validator::make($request->all() , [
+            '*.value' => 'required|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+        $data = $request->all();
+        $product = Product::find($id);
+        $product->attributes()->sync($data, true);
+
+        $attrs = Product::with('attributes')->where('id', $id)->first()->attributes;
+
+        return response()->json([
+            "data" => $attrs,
+            'message' => "عملیات با موفقیت انجام شد"
+        ] , 200);
+    }
+
+
 }

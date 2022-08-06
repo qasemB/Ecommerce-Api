@@ -1607,6 +1607,82 @@
                 ]
             }
         },
+        "/api/admin/products/{id}/add_attr": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Add product Attributes",
+                "description": "Add multiple attribute for one product",
+                "operationId": "productAttr",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "edit category",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "1": {
+                                        "type": "string"
+                                    },
+                                    "2": {
+                                        "type": "string"
+                                    },
+                                    "3": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "1": {
+                                    "value": "test1"
+                                },
+                                "2": {
+                                    "value": "test2"
+                                },
+                                "3": {
+                                    "value": "test3"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/categories/{categoryId}/attributes": {
             "get": {
                 "tags": [

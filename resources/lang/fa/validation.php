@@ -251,5 +251,6 @@ return [
         'persian_name'    => 'عنوان فارسی',
         'descriptions'    => 'توضیحات',
         'logo'      =>        'آرم',
+        '*.value'      =>        'مقدار وارد شده',
     ],
 ];
