@@ -67,10 +67,10 @@ class ProductController extends Controller
         if ($page) {
             $count = (int) $request->input("count");
             $countInPAge = isset($count) ? $count : 10;
-            $products = Product::with('categories', 'colors', 'guarantees')->where("title", "like", "%$searchChar%")->paginate($countInPAge);
+            $products = Product::with('categories', 'colors', 'guarantees', 'attributes')->where("title", "like", "%$searchChar%")->paginate($countInPAge);
             return response()->json($products, 200);
         }
-        $products = Product::with('categories', 'colors', 'guarantees')->where("title", "like", "%$searchChar%")->get();
+        $products = Product::with('categories', 'colors', 'guarantees', 'attributes')->where("title", "like", "%$searchChar%")->get();
         $productsCount = sizeof($products);
         return response()->json([
             'data' => $products,
@@ -492,5 +492,36 @@ class ProductController extends Controller
         ] , 200);
     }
 
+    /**
+     * @OA\Get(
+     * path="/api/admin/products/{id}/get_attr",
+     * summary="Get product Attributes",
+     * description="Get all attributes from one product. You need to pass Product id",
+     * operationId="getProductAttr",
+     * tags={"Products"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="عملیت با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
+    public function getProductAttrs(int $id): JsonResponse
+    {
+        $priductAttrs = Product::with('attributes')->where('id', $id)->first()->attributes;
 
+        return response()->json([
+            "data" => $priductAttrs,
+            'message' => sizeof($priductAttrs) > 0 ? "عملیات با موفقیت انجام شد" : "ویژگی های این محصول مقداردهی نشده است"
+        ] , 200);
+    }
 }

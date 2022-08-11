@@ -53,6 +53,7 @@ Route::group(['prefix'=>'admin'] , function(){
         Route::put('products/{id}','ProductController@update');
         Route::delete('products/{id}','ProductController@destroy');
         Route::post('products/{id}/add_attr','ProductController@addAttr');
+        Route::get('products/{id}/get_attr','ProductController@getProductAttrs');
 
         Route::get('colors','ColorController@index');
         Route::post('colors','ColorController@store');

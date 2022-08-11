@@ -1683,6 +1683,49 @@
                 ]
             }
         },
+        "/api/admin/products/{id}/get_attr": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get product Attributes",
+                "description": "Get all attributes from one product. You need to pass Product id",
+                "operationId": "getProductAttr",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/categories/{categoryId}/attributes": {
             "get": {
                 "tags": [
