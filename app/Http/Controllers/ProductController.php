@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gallery;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -67,10 +68,10 @@ class ProductController extends Controller
         if ($page) {
             $count = (int) $request->input("count");
             $countInPAge = isset($count) ? $count : 10;
-            $products = Product::with('categories', 'colors', 'guarantees', 'attributes')->where("title", "like", "%$searchChar%")->paginate($countInPAge);
+            $products = Product::with('categories', 'colors', 'guarantees', 'attributes', 'gallery')->where("title", "like", "%$searchChar%")->paginate($countInPAge);
             return response()->json($products, 200);
         }
-        $products = Product::with('categories', 'colors', 'guarantees', 'attributes')->where("title", "like", "%$searchChar%")->get();
+        $products = Product::with('categories', 'colors', 'guarantees', 'attributes', 'gallery')->where("title", "like", "%$searchChar%")->get();
         $productsCount = sizeof($products);
         return response()->json([
             'data' => $products,
@@ -170,6 +171,11 @@ class ProductController extends Controller
         if ($request->file('image')) {
             $imgpath = Storage::disk('public')->put("images/products/$product->id", $request->file('image'));
             $product->image = $imgpath;
+            $gallery = new Gallery();
+            $gallery->product_id = $product->id;
+            $gallery->image = $imgpath;
+            $gallery->is_main = 1;
+            $gallery->save();
         }
         if ($request['color_ids']) {
             $product->colors()->attach(explode("-", $request['color_ids']));
@@ -524,4 +530,64 @@ class ProductController extends Controller
             'message' => sizeof($priductAttrs) > 0 ? "عملیات با موفقیت انجام شد" : "ویژگی های این محصول مقداردهی نشده است"
         ] , 200);
     }
+
+
+
+    /**
+     * @OA\Post(
+     * path="/api/admin/products/{id}/add_image",
+     * summary="Add image in gallery",
+     * description="Add one image in gallery list with product id",
+     * operationId="AddGalleryImage",
+     * tags={"Products"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Add one image",
+     *  @OA\MediaType(
+     *    mediaType="multipart/form-data",
+     *    @OA\Schema(
+     *       required={"image"},
+     *      @OA\Property(property="image", description="Image to upload",type="file"),
+     *    )
+     *   ),
+     * ),
+     * @OA\Response(
+     *    response=201,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="عملیت با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
+    public function addImage(Request $request, int $id){
+        $validator = Validator::make($request->all() , [
+            'image' => 'required|image|max:500' ,
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+        $imgpath = Storage::disk('public')->put("images/products/$id", $request->file('image'));
+        $gallery = new Gallery();
+        $gallery->product_id = $id;
+        $gallery->image = $imgpath;
+        $gallery->save();
+
+        return response()->json([
+            'data' => ['id' => $gallery->id, 'image' => $imgpath],
+            'message' => "تصویر با موفقیت ذخیره شد"
+        ] , 201);
+    }
+
+
+
 }

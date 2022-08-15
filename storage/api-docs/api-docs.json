@@ -1726,6 +1726,69 @@
                 ]
             }
         },
+        "/api/admin/products/{id}/add_image": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Add image in gallery",
+                "description": "Add one image in gallery list with product id",
+                "operationId": "AddGalleryImage",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Add one image",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "image"
+                                ],
+                                "properties": {
+                                    "image": {
+                                        "description": "Image to upload",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/categories/{categoryId}/attributes": {
             "get": {
                 "tags": [
