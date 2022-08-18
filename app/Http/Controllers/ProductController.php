@@ -339,7 +339,6 @@ class ProductController extends Controller
      *     )
      * )
      */
-
     public function update(Request $request, int $id): JsonResponse
     {
         $validator = Validator::make($request->all() , [
@@ -429,7 +428,8 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $imagePath = $product->image;
-        if (isset($imagePath) && File::exists($imagePath)) File::delete($imagePath);
+        if (File::isDirectory("images/products/$id"))
+            File::deleteDirectory("images/products/$id",0755);
         Product::destroy($id);
         return response()->json([
             'message' => 'محصول با موفقیت حذف شد'
@@ -531,8 +531,6 @@ class ProductController extends Controller
         ] , 200);
     }
 
-
-
     /**
      * @OA\Post(
      * path="/api/admin/products/{id}/add_image",
@@ -588,6 +586,38 @@ class ProductController extends Controller
         ] , 201);
     }
 
-
+    /**
+     * @OA\Delete(
+     * path="/api/admin/products/gallery/{imageId}",
+     * summary="Delete product image",
+     * description="Delete one product image",
+     * operationId="deleteProductImage",
+     * tags={"Products"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="imageId",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="حذف با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
+    public function deleteImage(int $id)
+    {
+        $image = Gallery::find($id);
+        $imagePath = $image->image;
+        if (isset($imagePath) && File::exists($imagePath)) File::delete($imagePath);
+        Gallery::destroy($id);
+        return response()->json([
+            'message' => "تصویر با موفقیت حذف شد"
+        ] , 200);
+    }
 
 }
