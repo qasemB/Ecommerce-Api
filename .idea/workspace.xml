@@ -17,9 +17,6 @@
       <change beforePath="$PROJECT_DIR$/../.styleci.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/products/32/a4kjRtwnPqdFlELBnzwkHqVRkZELysGTSS2DPKbR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/products/32/oQjEdzPufcBwKRoMwHsoOWw4D06UOXgCTK2T7hAO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/products/32/twNNZVqK1GfZhFlPmABLOHFI4nEorz7dlvgXYwt5.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
@@ -470,7 +467,7 @@
       <workItem from="1660205648661" duration="3910000" />
       <workItem from="1660502686581" duration="17111000" />
       <workItem from="1660819075039" duration="81000" />
-      <workItem from="1660832498055" duration="4671000" />
+      <workItem from="1660832498055" duration="14446000" />
     </task>
     <servers />
   </component>

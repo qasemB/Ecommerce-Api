@@ -620,4 +620,44 @@ class ProductController extends Controller
         ] , 200);
     }
 
+    /**
+     * @OA\Get(
+     * path="/api/admin/products/gallery/set_main/{imageId}",
+     * summary="Set main product image",
+     * description="set one image as main image for product",
+     * operationId="setMainProductImage",
+     * tags={"Products"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="imageId",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="عملیت با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
+    public function setMainImage(int $imageId)
+    {
+        $image = Gallery::find($imageId);
+        Gallery::where('product_id', $image->product_id)->update(['is_main' => 0]);
+        $imagePath = $image->image;
+        $image->is_main = 1;
+        $product = Product::find($image->product_id);
+        $product->image = $imagePath;
+
+        $image->save();
+        $product->save();
+
+        return response()->json([
+            'message' => "عملیات با موفقیت انجام شد"
+        ] , 200);
+
+    }
 }

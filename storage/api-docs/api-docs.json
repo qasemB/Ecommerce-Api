@@ -1832,6 +1832,49 @@
                 ]
             }
         },
+        "/api/admin/products/gallery/set_main/{imageId}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Set main product image",
+                "description": "set one image as main image for product",
+                "operationId": "setMainProductImage",
+                "parameters": [
+                    {
+                        "name": "imageId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/categories/{categoryId}/attributes": {
             "get": {
                 "tags": [

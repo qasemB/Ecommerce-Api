@@ -56,6 +56,7 @@ Route::group(['prefix'=>'admin'] , function(){
         Route::get('products/{id}/get_attr','ProductController@getProductAttrs');
         Route::post('products/{id}/add_image','ProductController@addImage');
         Route::delete('products/gallery/{imageId}','ProductController@deleteImage');
+        Route::get('products/gallery/set_main/{imageId}','ProductController@setMainImage');
 
         Route::get('colors','ColorController@index');
         Route::post('colors','ColorController@store');
