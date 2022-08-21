@@ -956,6 +956,39 @@
                 ]
             }
         },
+        "/api/admin/discounts": {
+            "get": {
+                "tags": [
+                    "Discounts"
+                ],
+                "summary": "Get all discounts",
+                "description": "Get all discounts",
+                "operationId": "allDiscounts",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/guarantees": {
             "get": {
                 "tags": [
@@ -2182,6 +2215,10 @@
         {
             "name": "Guarantees",
             "description": "Guarantees Actions"
+        },
+        {
+            "name": "Discounts",
+            "description": "Discounts Actions"
         }
     ],
     "security": [

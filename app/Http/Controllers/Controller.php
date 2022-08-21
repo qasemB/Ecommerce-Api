@@ -46,6 +46,10 @@ use Illuminate\Routing\Controller as BaseController;
  *         name="Guarantees",
  *         description="Guarantees Actions"
  *    )
+ *   @OA\Tag(
+ *         name="Discounts",
+ *         description="Discounts Actions"
+ *    )
  */
 class Controller extends BaseController
 {
