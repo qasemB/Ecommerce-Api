@@ -1908,6 +1908,39 @@
                 ]
             }
         },
+        "/api/admin/products/all_titles": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get products titles",
+                "description": "get all product titles ",
+                "operationId": "getProductTitles",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/categories/{categoryId}/attributes": {
             "get": {
                 "tags": [

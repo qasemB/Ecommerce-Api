@@ -28,7 +28,7 @@ class DiscountController extends Controller
      */
     public function index(): JsonResponse
     {
-        $discounts = Discount::all();
+        $discounts = Discount::with('products')->get();
         $discountsCount = sizeof($discounts);
         return response()->json([
             'data' => $discounts,

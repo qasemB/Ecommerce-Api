@@ -32,4 +32,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\Gallery');
     }
+
+    public function discounts(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Models\Discount');
+    }
 }

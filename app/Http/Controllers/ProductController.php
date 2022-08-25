@@ -660,4 +660,37 @@ class ProductController extends Controller
         ] , 200);
 
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    /**
+     * @OA\Get(
+     *  path="/api/admin/products/all_titles",
+     *  summary="Get products titles",
+     *  description="get all product titles ",
+     *  operationId="getProductTitles",
+     *  tags={"Products"},
+     *  security={ {"bearer_token": {} }},
+     *  @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="data", type="string", example="[{}, {}]")
+     *     )
+     *  )
+     * )
+     * @return JsonResponse
+     */
+    public function getAllTitles(): JsonResponse
+    {
+        $products = Product::all('id', 'title');
+        $productsCount = sizeof($products);
+        return response()->json([
+            'data' => $products,
+            'message' => $productsCount > 0 ? "تعداد $productsCount محصول دریافت شد" : "فعلا محصولی ایجاد نشده است"
+        ], 200);
+    }
 }

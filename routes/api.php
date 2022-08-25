@@ -47,6 +47,7 @@ Route::group(['prefix'=>'admin'] , function(){
         Route::delete('categories/attributes/{id}','PropertyController@destroy');
 
         Route::get('products','ProductController@index');
+        Route::get('products/all_titles','ProductController@getAllTitles');
         Route::post('products','ProductController@store');
         Route::get('products/{id}','ProductController@show');
         Route::get('products/title_is_exist/{title}','ProductController@titleIsExist');
