@@ -987,6 +987,81 @@
                         "bearer_token": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "Discounts"
+                ],
+                "summary": "Add discount code",
+                "description": "Store one discount code",
+                "operationId": "addDiscount",
+                "requestBody": {
+                    "description": "Add one color",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "code",
+                                    "percent",
+                                    "expire_at",
+                                    "for_all"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "codeTest"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "example": "codetakhfif"
+                                    },
+                                    "percent": {
+                                        "type": "number",
+                                        "example": "10"
+                                    },
+                                    "expire_at": {
+                                        "type": "string",
+                                        "example": "2022-08-01"
+                                    },
+                                    "for_all": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    },
+                                    "product_ids": {
+                                        "type": "string",
+                                        "example": "1-2-3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             }
         },
         "/api/admin/guarantees": {

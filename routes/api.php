@@ -78,6 +78,7 @@ Route::group(['prefix'=>'admin'] , function(){
         Route::delete('guarantees/{id}','GuaranteeController@destroy');
 
         Route::get('discounts','DiscountController@index');
+        Route::post('discounts','DiscountController@store');
     });
 
 });
