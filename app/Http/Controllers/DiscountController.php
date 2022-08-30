@@ -80,7 +80,7 @@ class DiscountController extends Controller
             'percent' => 'required|numeric' ,
             'expire_at' => 'required|date' ,
             'for_all' => 'required|boolean' ,
-            'product_ids' => 'required|regex:/^[0-9 \-]+$/' ,
+            'product_ids' => 'nullable|regex:/^[0-9 \-]+$/' ,
         ]);
 
 

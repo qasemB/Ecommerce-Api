@@ -17,8 +17,6 @@
       <change beforePath="$PROJECT_DIR$/../.styleci.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DiscountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DiscountController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/Console/Kernel.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/Exceptions/Handler.php" beforeDir="false" />
@@ -471,7 +469,8 @@
       <workItem from="1661090436665" duration="8000" />
       <workItem from="1661098551481" duration="3543000" />
       <workItem from="1661268301169" duration="68713000" />
-      <workItem from="1661629304577" duration="4819000" />
+      <workItem from="1661629304577" duration="5460000" />
+      <workItem from="1661715357918" duration="34000" />
     </task>
     <servers />
   </component>
