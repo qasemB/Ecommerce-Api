@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discount;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -111,6 +112,134 @@ class DiscountController extends Controller
     }
 
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param  int  $id
+     * @return Response
+     */
+    /**
+     * @OA\Put(
+     * path="/api/admin/discounts/{id}",
+     * summary="Edit discount",
+     * description="Edit one discount",
+     * operationId="editDiscount",
+     * tags={"Discounts"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     *  @OA\RequestBody(
+     *      required=true,
+     *      description="edit category",
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              @OA\Property(property="title", type="string"),
+     *              @OA\Property(property="code", type="string"),
+     *              @OA\Property(property="percent", type="number"),
+     *              @OA\Property(property="expire_at", type="string"),
+     *              @OA\Property(property="for_all", type="boolean"),
+     *              @OA\Property(property="product_ids", type="string"),
+     *          ),
+     *        example={
+     *          "title" : "edited discount title",
+     *          "code" : "takhfif edited",
+     *          "percent" : "11",
+     *          "expire_at" : "2022-09-08",
+     *          "for_all" : "true",
+     *          "product_ids" : "30-25",
+     *        }
+     *      ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="عملیت با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $validator = Validator::make($request->all() , [
+            'title' => 'required|unique:colors,title|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/' ,
+            'code' => 'required|unique:colors,title|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n @!%-.$?&\s]+$/' ,
+            'percent' => 'required|numeric' ,
+            'expire_at' => 'required|date' ,
+            'for_all' => 'required|boolean' ,
+            'product_ids' => 'nullable|regex:/^[0-9 \-]+$/' ,
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+
+        $discount = Discount::find($id);
+        $discount->title = $request['title'];
+        $discount->code = $request['code'];
+        $discount->percent = $request['percent'];
+        $discount->expire_at = $request['expire_at'];
+        $discount->for_all = $request['for_all'];
+
+        if (!$request['for_all']) {
+            $discount->products()->sync(explode("-", $request['product_ids']), true);
+        }
+
+        $discount->save();
+
+        $discount = Discount::with('products')->find($id);
+
+
+        return response()->json([
+            'data'=> $discount,
+            'message' => 'کد با موفقیت ویرایش شد'
+        ] , 200);
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    /**
+     * @OA\Delete(
+     * path="/api/admin/discounts/{id}",
+     * summary="Delete discounts",
+     * description="Delete one discount",
+     * operationId="deleteDiscount",
+     * tags={"Discounts"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="حذف با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
+    public function destroy(int $id): JsonResponse
+    {
+        Discount::destroy($id);
+        return response()->json([
+            'message' => 'کد تخفیف با موفقیت حذف شد'
+        ] , 200);
+    }
 
 
 }

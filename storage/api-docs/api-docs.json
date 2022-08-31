@@ -1064,6 +1064,129 @@
                 ]
             }
         },
+        "/api/admin/discounts/{id}": {
+            "put": {
+                "tags": [
+                    "Discounts"
+                ],
+                "summary": "Edit discount",
+                "description": "Edit one discount",
+                "operationId": "editDiscount",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "edit category",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    },
+                                    "percent": {
+                                        "type": "number"
+                                    },
+                                    "expire_at": {
+                                        "type": "string"
+                                    },
+                                    "for_all": {
+                                        "type": "boolean"
+                                    },
+                                    "product_ids": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "title": "edited discount title",
+                                "code": "takhfif edited",
+                                "percent": "11",
+                                "expire_at": "2022-09-08",
+                                "for_all": "true",
+                                "product_ids": "30-25"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Discounts"
+                ],
+                "summary": "Delete discounts",
+                "description": "Delete one discount",
+                "operationId": "deleteDiscount",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "حذف با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/guarantees": {
             "get": {
                 "tags": [
