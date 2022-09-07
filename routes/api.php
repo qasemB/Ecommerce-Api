@@ -81,6 +81,8 @@ Route::group(['prefix'=>'admin'] , function(){
             Route::post('discounts','DiscountController@store');
             Route::put('discounts/{id}','DiscountController@update');
             Route::delete('discounts/{id}','DiscountController@destroy');
+
+            Route::get('permissions','PermissionController@index');
         });
     });
 

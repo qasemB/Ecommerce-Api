@@ -1443,6 +1443,39 @@
                 ]
             }
         },
+        "/api/admin/permissions": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all permissions",
+                "description": "Get all permissions",
+                "operationId": "allPermissions",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{...}, {...}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/products": {
             "get": {
                 "tags": [
@@ -2450,6 +2483,10 @@
         {
             "name": "Discounts",
             "description": "Discounts Actions"
+        },
+        {
+            "name": "User",
+            "description": "User Actions"
         }
     ],
     "security": [
