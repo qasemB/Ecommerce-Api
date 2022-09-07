@@ -17,6 +17,10 @@ class CreatePermissionsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('descriptiosn')->nullable();
+            $table->text('path')->nullable();
+            $table->string('method')->nullable();
+            $table->integer('arrange')->nullable();
+            $table->string('category')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();

@@ -16,10 +16,13 @@
       <change beforePath="$PROJECT_DIR$/../.rnd" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.styleci.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DiscountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DiscountController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/products/25/tqx0qlHphWk75nmOJgAumtu1SZYTd5WbPFVTN1c9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Permission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_12_09_165543_create_permissions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_12_09_165543_create_permissions_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/Console/Kernel.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/Exceptions/Handler.php" beforeDir="false" />
@@ -476,6 +479,11 @@
       <workItem from="1661715357918" duration="34000" />
       <workItem from="1661881876428" duration="2960000" />
       <workItem from="1661890051254" duration="1008000" />
+      <workItem from="1661952923003" duration="1487000" />
+      <workItem from="1662045953130" duration="5214000" />
+      <workItem from="1662228500502" duration="316000" />
+      <workItem from="1662228836680" duration="278000" />
+      <workItem from="1662583554669" duration="15000" />
     </task>
     <servers />
   </component>
