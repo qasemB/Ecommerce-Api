@@ -281,6 +281,18 @@ Route::get('/', function () {
 //             //     'method' => 'get',
 //             //     'arrange' => '10',
 //             //     'category' => 'کاربران'],
+//             // ['title' => 'read_roles',
+//             //     'description' => 'مشاهده نقش ها',
+//             //     'path' => 'api/admin/roles',
+//             //     'method' => 'get',
+//             //     'arrange' => '11',
+//             //     'category' => 'کاربران'],
+//             // ['title' => 'create_role',
+//             //     'description' => 'افزودن نقش جدید',
+//             //     'path' => 'api/admin/roles',
+//             //     'method' => 'post',
+//             //     'arrange' => '11',
+//             //     'category' => 'کاربران'],
 //         ]
 //     );
 

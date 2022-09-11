@@ -51,9 +51,9 @@ use Illuminate\Routing\Controller as BaseController;
  *         description="Discounts Actions"
  *    )
  *   @OA\Tag(
- *         name="User",
+ *         name="Users",
  *         description="User Actions"
- *    )
+ *   )
  */
 class Controller extends BaseController
 {

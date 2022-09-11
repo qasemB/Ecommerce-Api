@@ -13,7 +13,7 @@ class PermissionController extends Controller
      *  summary="Get all permissions",
      *  description="Get all permissions",
      *  operationId="allPermissions",
-     *  tags={"User"},
+     *  tags={"Users"},
      *  security={ {"bearer_token": {} }},
      *  @OA\Response(
      *    response=200,

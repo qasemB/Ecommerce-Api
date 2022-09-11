@@ -1446,7 +1446,7 @@
         "/api/admin/permissions": {
             "get": {
                 "tags": [
-                    "User"
+                    "Users"
                 ],
                 "summary": "Get all permissions",
                 "description": "Get all permissions",
@@ -2441,6 +2441,99 @@
                     }
                 ]
             }
+        },
+        "/api/admin/roles": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all Roles",
+                "description": "get all roles",
+                "operationId": "getRoles",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Add Role",
+                "description": "Store one Role",
+                "operationId": "addRole",
+                "requestBody": {
+                    "description": "Add one Role",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "permissions_id"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "role_name_1"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "example description"
+                                    },
+                                    "permissions_id": {
+                                        "type": "object",
+                                        "example": "[2,3]"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -2485,7 +2578,7 @@
             "description": "Discounts Actions"
         },
         {
-            "name": "User",
+            "name": "Users",
             "description": "User Actions"
         }
     ],

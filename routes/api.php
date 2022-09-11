@@ -83,6 +83,8 @@ Route::group(['prefix'=>'admin'] , function(){
             Route::delete('discounts/{id}','DiscountController@destroy');
 
             Route::get('permissions','PermissionController@index');
+            Route::get('roles','RoleController@index');
+            Route::post('roles','RoleController@store');
         });
     });
 
