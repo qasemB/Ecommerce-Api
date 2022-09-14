@@ -29,7 +29,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::where('title', '!=', 'admin')->with('permissions')->get(['id', 'title', 'descriptiosn']);
+        $roles = Role::where('title', '!=', 'admin')->with('permissions')->get(['id', 'title', 'description']);
         $roleCount = sizeof($roles);
         return response()->json([
             'data' => $roles,
@@ -87,13 +87,13 @@ class RoleController extends Controller
 
         $role = new Role();
         $role->title = $request['title'];
-        $role->descriptiosn = $request['description'];
+        $role->description = $request['description'];
 
         $role->save();
 
         $role->permissions()->attach($request['permissions_id']);
 
-        $newRole = Role::with('permissions')->where('id', $role->id)->first(['id', 'title', 'descriptiosn']);
+        $newRole = Role::with('permissions')->where('id', $role->id)->first(['id', 'title', 'description']);
 
         return response()->json([
             'data' => $newRole,
