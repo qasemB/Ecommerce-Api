@@ -84,7 +84,11 @@ Route::group(['prefix'=>'admin'] , function(){
 
             Route::get('permissions','PermissionController@index');
             Route::get('roles','RoleController@index');
+            Route::get('roles/{id}','RoleController@show');
             Route::post('roles','RoleController@store');
+            Route::put('roles/{id}','RoleController@update');
+            Route::put('roles/{id}/permissions','RoleController@updatePermissions');
+            Route::delete('roles/{id}','RoleController@destroy');
         });
     });
 

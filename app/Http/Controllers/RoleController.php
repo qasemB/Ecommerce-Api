@@ -43,7 +43,7 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-        /**
+    /**
      * @OA\Post(
      * path="/api/admin/roles",
      * summary="Add Role",
@@ -76,7 +76,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all() , [
-            'title' => 'required|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/',
+            'title' => 'required|unique:roles,title|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/',
             'description' => 'nullable',
             'permissions_id.*' => 'exists:permissions,id',
         ]);
@@ -107,9 +107,36 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    /**
+     * @OA\Get(
+     *      path="/api/admin/roles/{id}",
+     *      summary="Get one role",
+     *      description="Get one role with id",
+     *      operationId="oneRole",
+     *      tags={"Users"},
+     *      security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="number")
+     *  ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *      @OA\Property(property="data", type="string", example="{}")
+     *   )
+     *  )
+     * )
+     */
+    public function show(int $id)
     {
-        //
+        $role = Role::with('permissions')->find($id);
+        return response()->json([
+            'data' => $role,
+            'message' => 'دریافت  با موفقیت انجام شد'
+        ], 200);
     }
 
     /**
@@ -119,9 +146,119 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @OA\Put(
+     * path="/api/admin/roles/{id}",
+     * summary="Edit role",
+     * description="Edit one role",
+     * operationId="editRole",
+     * tags={"Users"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     *  @OA\RequestBody(
+     *      required=true,
+     *      description="edit category",
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              @OA\Property(property="title", type="string"),
+     *              @OA\Property(property="description", type="string"),
+     *          ),
+     *        example={
+     *          "title" : "edited role title",
+     *          "description" : "description of role edited",
+     *        }
+     *      ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="عملیت با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all() , [
+            'title' => "required|unique:permissions,title,$id,id|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/" ,
+            'description' => 'nullable|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/' ,
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+        $role = Role::with('permissions')->find($id);
+        $role->title = $request['title'];
+        $role->description = $request['description'];
+        $role->save();
+        return response()->json([
+            'data' => $role,
+            'message' => 'ویرایش با موفقیت انجام شد'
+        ], 200);
+    }
+
+
+    /**
+     * @OA\Put(
+     * path="/api/admin/roles/{id}/permissions",
+     * summary="Edit role permissions",
+     * description="Edit one role permissions",
+     * operationId="editRolePermissions",
+     * tags={"Users"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     *  @OA\RequestBody(
+     *      required=true,
+     *      description="edit category",
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              @OA\Property(property="permissions_id", type="object", example="[2,3]"),
+     *          ),
+     *      ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="تغییر دسترسی با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
+    public function updatePermissions(Request $request, $id)
+    {
+        $validator = Validator::make($request->all() , [
+            'permissions_id' => 'required',
+            'permissions_id.*' => 'exists:permissions,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+        $role = Role::find($id);
+        $role->permissions()->sync($request['permissions_id'], true);
+        $role->save();
+
+        $role = Role::with('permissions')->find($id);
+        return response()->json([
+            'data' => $role,
+            'message' => 'تغییر دسترسی با موفقیت انجام شد'
+        ], 200);
     }
 
     /**
@@ -130,8 +267,34 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @OA\Delete(
+     * path="/api/admin/roles/{id}",
+     * summary="Delete role",
+     * description="Delete one role",
+     * operationId="deleteRole",
+     * tags={"Users"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="حذف با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
     public function destroy($id)
     {
-        //
+        Role::destroy($id);
+        return response()->json([
+            'message' => 'نقش با موفقیت حذف شد'
+        ] , 200);
     }
 }
