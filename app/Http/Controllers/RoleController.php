@@ -29,7 +29,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::where('title', '!=', 'admin')->with('permissions')->get(['id', 'title', 'description']);
+        $roles = Role::roles()->with('permissions')->get(['id', 'title', 'description']);
         $roleCount = sizeof($roles);
         return response()->json([
             'data' => $roles,
@@ -93,7 +93,7 @@ class RoleController extends Controller
 
         $role->permissions()->attach($request['permissions_id']);
 
-        $newRole = Role::with('permissions')->where('id', $role->id)->first(['id', 'title', 'description']);
+        $newRole = Role::roles()->with('permissions')->where('id', $role->id)->first(['id', 'title', 'description']);
 
         return response()->json([
             'data' => $newRole,
@@ -132,7 +132,7 @@ class RoleController extends Controller
      */
     public function show(int $id)
     {
-        $role = Role::with('permissions')->find($id);
+        $role = Role::roles()->with('permissions')->find($id);
         return response()->json([
             'data' => $role,
             'message' => 'دریافت  با موفقیت انجام شد'
@@ -195,7 +195,7 @@ class RoleController extends Controller
             return response()->json($validator->errors(), 202);
         }
 
-        $role = Role::with('permissions')->find($id);
+        $role = Role::roles()->with('permissions')->find($id);
         $role->title = $request['title'];
         $role->description = $request['description'];
         $role->save();
@@ -250,11 +250,11 @@ class RoleController extends Controller
             return response()->json($validator->errors(), 202);
         }
 
-        $role = Role::find($id);
+        $role = Role::roles()->find($id);
         $role->permissions()->sync($request['permissions_id'], true);
         $role->save();
 
-        $role = Role::with('permissions')->find($id);
+        $role = Role::roles()->with('permissions')->find($id);
         return response()->json([
             'data' => $role,
             'message' => 'تغییر دسترسی با موفقیت انجام شد'
@@ -292,7 +292,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::destroy($id);
+        Role::roles()->where('id', $id)->delete();
         return response()->json([
             'message' => 'نقش با موفقیت حذف شد'
         ] , 200);

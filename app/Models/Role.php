@@ -17,6 +17,10 @@ class Role extends Model
         return $this->belongsToMany('App\Models\Permission');
     }
 
+    public function scopeRoles($query){
+        return $query->where('title', '!=', 'admin');
+    }
+
     // public static function boot(){
     //     parent::boot();
     //     static::deleting(function($role){

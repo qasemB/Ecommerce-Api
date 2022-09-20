@@ -43,4 +43,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Role');
     }
+
+    public function scopeUsers($query){
+        return $query->where("phone", "!=", "09110000000");
+    }
 }
