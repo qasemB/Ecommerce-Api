@@ -64,7 +64,7 @@ class UserController extends Controller
         if ($page) {
             $count = (int) $request->input("count");
             $countInPAge = isset($count) ? $count : 10;
-            $users = User::users()->where([
+            $users = User::users()->with('roles')->where([
                 ["phone", "like", "%$searchChar%"],
             ])->orWhere([
                 ["email", "like", "%$searchChar%"],
@@ -74,7 +74,7 @@ class UserController extends Controller
                 'message' => "کاربران با موفقیت دریافت شدند"
             ], 200);
         }
-        $users = User::users()->where([
+        $users = User::users()->with('roles')->where([
             ["phone", "like", "%$searchChar%"],
         ])->orWhere([
             ["email", "like", "%$searchChar%"],
@@ -132,12 +132,12 @@ class UserController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all() , [
-            'user_name' => 'required|regex:/^[a-zA-z0-9\-0-9-@#$_.\n\s]+$/',
+            'user_name' => 'required|regex:/^[a-zA-z0-9\-0-9-@#$_.\n\s]+$/|unique:users,user_name',
             'first_name' => 'nullable|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگل_-منوهیئ\s]+$/',
             'last_name' => 'nullable|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگل_-منوهیئ\s]+$/',
-            'phone' => 'required|numeric|digits:11',
-            'national_code' => 'nullable|numeric|digits:10',
-            'email' => 'nullable|email',
+            'phone' => 'required|numeric|digits:11|unique:users,phone',
+            'national_code' => 'nullable|numeric|digits:10|unique:users,national_code',
+            'email' => 'nullable|email|unique:users,email',
             'password' => 'required|regex:/^[a-zA-z0-9\-0-9-@#$_.\n\s]+$/|between:8,20',
             'birth_date' => 'nullable|date',
             'gender' => 'nullable|numeric|digits:1',
@@ -156,7 +156,7 @@ class UserController extends Controller
         $user->phone = $request['phone'];
         $user->national_code = $request['national_code'];
         $user->email = $request['email'];
-        $user->password = $request['password'];
+        $user->password = bcrypt($request['password']);
         $user->birth_date = $request['birth_date'];
         $user->gender = $request['gender'];
 
@@ -165,7 +165,7 @@ class UserController extends Controller
         $user->roles()->attach($request['roles_id']);
 
         return response()->json([
-            'data'=> User::users()->find($user->id),
+            'data'=> User::users()->with('roles')->find($user->id),
             'message' => 'کاربر با موفقیت ایجاد شد'
         ] , 201);
     }
@@ -215,9 +215,90 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    /**
+     * @OA\Put(
+     * path="/api/admin/users/{id}",
+     * summary="Edit user",
+     * description="Edit one user",
+     * operationId="editUser",
+     * tags={"Users"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     *  @OA\RequestBody(
+     *      required=true,
+     *      description="edit category",
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              @OA\Property(property="user_name", type="string",  example="test username edited"),
+     *              @OA\Property(property="first_name", type="string",  example="test name edited"),
+     *              @OA\Property(property="last_name", type="string",  example="test family edited"),
+     *              @OA\Property(property="phone", type="number", example="09110000012"),
+     *              @OA\Property(property="national_code", type="number", example="2222222222"),
+     *              @OA\Property(property="email", type="string", example="testemail_edited@gmail.com"),
+     *              @OA\Property(property="password", type="string", example=""),
+     *              @OA\Property(property="birth_date", type="string", example="2000-11-10"),
+     *              @OA\Property(property="gender", type="number", example="1"),
+     *              @OA\Property(property="roles_id", type="object", example="[4,5]"),
+     *          ),
+     *      ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="عملیت با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
+    public function update(Request $request,int $id)
     {
-        //
+        $validator = Validator::make($request->all() , [
+            'user_name' => "required|regex:/^[a-zA-z0-9\-0-9-@#\$_.\n\s]+$/|unique:users,user_name,$id,id",
+            'first_name' => 'nullable|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگل_-منوهیئ\s]+$/',
+            'last_name' => 'nullable|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگل_-منوهیئ\s]+$/',
+            'phone' => "required|numeric|digits:11|unique:users,phone,$id,id",
+            'national_code' => "nullable|numeric|digits:10|unique:users,national_code,$id,id",
+            'email' => "nullable|email|unique:users,email,$id,id",
+            'password' => 'nullable|regex:/^[a-zA-z0-9\-0-9-@#$_.\n\s]+$/|between:8,20',
+            'birth_date' => 'nullable|date',
+            'gender' => 'nullable|numeric|digits:1',
+            'roles_id' => 'required|array|min:1',
+            'roles_id.*' => 'exists:roles,id|not_in:1',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+        $user = User::users()->find($id);
+        $user->user_name = $request['user_name'];
+        $user->first_name = $request['first_name'];
+        $user->last_name = $request['last_name'];
+        $user->phone = $request['phone'];
+        $user->national_code = $request['national_code'];
+        $user->email = $request['email'];
+        if ($request['password']) {
+            $user->password = bcrypt($request['password']);
+        }
+        $user->birth_date = $request['birth_date'];
+        $user->gender = $request['gender'];
+
+        $user->save();
+
+        $user->roles()->sync($request['roles_id'], true);
+
+        return response()->json([
+            'data'=> User::users()->with('roles')->find($id),
+            'message' => 'کاربر با موفقیت ویرایش شد'
+        ] , 200);
+
     }
 
     /**
@@ -226,8 +307,34 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @OA\Delete(
+     * path="/api/admin/users/{id}",
+     * summary="Delete user",
+     * description="Delete one user",
+     * operationId="deleteUser",
+     * tags={"Users"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="حذف با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
+     */
     public function destroy($id)
     {
-        //
+        User::users()->where('id', $id)->delete();
+        return response()->json([
+            'message' => 'کاربر با موفقیت حذف شد'
+        ] , 200);
     }
 }

@@ -2932,6 +2932,141 @@
                         "bearer_token": []
                     }
                 ]
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Edit user",
+                "description": "Edit one user",
+                "operationId": "editUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "edit category",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_name": {
+                                        "type": "string",
+                                        "example": "test username edited"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "test name edited"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "test family edited"
+                                    },
+                                    "phone": {
+                                        "type": "number",
+                                        "example": "09110000012"
+                                    },
+                                    "national_code": {
+                                        "type": "number",
+                                        "example": "2222222222"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "testemail_edited@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "example": "2000-11-10"
+                                    },
+                                    "gender": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "roles_id": {
+                                        "type": "object",
+                                        "example": "[4,5]"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "عملیت با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete user",
+                "description": "Delete one user",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "حذف با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             }
         }
     },
