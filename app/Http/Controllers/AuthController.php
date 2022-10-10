@@ -170,7 +170,7 @@ class AuthController extends Controller
      */
     public function getUser(Request $request){
         try {
-            return $request->user();
+            return $request->user()->load(['roles.permissions']);
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => "دسترسی به کاربر امکان پذیر نیست"
