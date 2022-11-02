@@ -94,6 +94,17 @@ Route::group(['prefix'=>'admin'] , function(){
             Route::post('users','UserController@store');
             Route::put('users/{id}','UserController@update');
             Route::delete('users/{id}','UserController@destroy');
+
+            Route::get('deliveries','DeliveryController@index');
+            Route::get('deliveries/{id}','DeliveryController@show');
+            Route::post('deliveries','DeliveryController@store');
+            Route::put('deliveries/{id}','DeliveryController@update');
+            Route::delete('deliveries/{id}','DeliveryController@destroy');
+
+            Route::get('carts','CartController@index');
+            Route::post('carts','CartController@store');
+            Route::get('carts/{id}','CartController@show');
+            Route::delete('carts/{id}','CartController@destroy');
         });
     });
 

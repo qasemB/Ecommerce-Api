@@ -49,7 +49,7 @@ class DiscountController extends Controller
      * security={ {"bearer_token": {} }},
      *  @OA\RequestBody(
      *    required=true,
-     *    description="Add one color",
+     *    description="Add one discount",
      *  @OA\MediaType(
      *    mediaType="application/json",
      *    @OA\Schema(
@@ -135,7 +135,7 @@ class DiscountController extends Controller
      *  ),
      *  @OA\RequestBody(
      *      required=true,
-     *      description="edit category",
+     *      description="edit delivery",
      *      @OA\MediaType(
      *          mediaType="application/json",
      *          @OA\Schema(

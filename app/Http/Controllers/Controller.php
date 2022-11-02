@@ -54,6 +54,14 @@ use Illuminate\Routing\Controller as BaseController;
  *         name="Users",
  *         description="User Actions"
  *   )
+ *   @OA\Tag(
+ *         name="Deliveries",
+ *         description="Deliveries Actions"
+ *   )
+ *   @OA\Tag(
+ *         name="Carts",
+ *         description="Carts Actions"
+ *   )
  */
 class Controller extends BaseController
 {
