@@ -201,6 +201,7 @@ class DeliveryController extends Controller
         $delivery->amount = $request['amount'];
         $delivery->time = $request['time'];
         $delivery->time_unit = $request['time_unit'];
+        $delivery->save();
 
         return response()->json([
             'data'=> $delivery,
