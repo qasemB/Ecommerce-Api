@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -42,6 +43,11 @@ class User extends Authenticatable
     public function roles() : BelongsToMany
     {
         return $this->belongsToMany('App\Models\Role');
+    }
+
+    public function carts() : HasMany
+    {
+        return $this->hasMany('App\Models\Cart');
     }
 
     public function scopeUsers($query){

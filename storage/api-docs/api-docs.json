@@ -451,8 +451,36 @@
                     "Carts"
                 ],
                 "summary": "Get all carts",
-                "description": "Get all carts",
+                "description": "Get all carts - note: searchChar is part of user phone number",
                 "operationId": "allCarts",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "searchChar",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "description": "search on phone number",
+                            "type": "string",
+                            "example": "0911"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "success",

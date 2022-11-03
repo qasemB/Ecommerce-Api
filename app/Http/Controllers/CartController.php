@@ -13,10 +13,28 @@ class CartController extends Controller
      * @OA\Get(
      *  path="/api/admin/carts",
      *  summary="Get all carts",
-     *  description="Get all carts",
+     *  description="Get all carts - Note: searchChar is part of user phone number",
      *  operationId="allCarts",
      *  tags={"Carts"},
      *  security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="query",
+     *      name="page",
+     *      required=false,
+     *      @OA\Schema(type="number")
+     *  ),
+     *  @OA\Parameter(
+     *      in="query",
+     *      name="count",
+     *      required=false,
+     *      @OA\Schema(type="number")
+     *  ),
+     *  @OA\Parameter(
+     *      in="query",
+     *      name="searchChar",
+     *      required=false,
+     *      @OA\Schema(type="string", description="search on phone number", example="0911")
+     *  ),
      *  @OA\Response(
      *    response=200,
      *    description="success",
@@ -27,14 +45,35 @@ class CartController extends Controller
      * )
      * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $carts = Cart::with("items")->get();
+        $page = (int) $request->input("page");
+        $searchChar = $request->input("searchChar") ?  $request->input("searchChar") : "";
+        $validator = Validator::make(['searchChar'=>$searchChar] , [
+            'searchChar' => 'nullable|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+        if ($page) {
+            $count = (int) $request->input("count");
+            $countInPAge = isset($count) ? $count : 10;
+            $carts = Cart::with('user')->whereHas('user', function($q) use($searchChar){
+                $q->where("phone", "like", "%$searchChar%");
+            })->paginate($countInPAge);
+            return response()->json([
+                'data' => $carts,
+                'message' => "اطلاعات با موفقیت دریافت شدند"
+            ], 200);
+        }
+        $carts = Cart::with('user')->whereHas('user', function($q) use($searchChar){
+            $q->where("phone", "like", "%$searchChar%");
+        })->get();
         $cartsCount = sizeof($carts);
         return response()->json([
             'data' => $carts,
-            'message' => $cartsCount > 0 ? "تعداد $cartsCount سبد دریافت شد" : "هنوز سبدی ایجاد نشده است"
-        ] , 200);
+            'message' => $cartsCount > 0 ? "تعداد $cartsCount سبد دریافت شد" : "موردی یافت نشد"
+        ], 200);
     }
 
 
