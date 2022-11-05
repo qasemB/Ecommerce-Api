@@ -125,8 +125,8 @@ class CartController extends Controller
         $validator = Validator::make($request->all() , [
             'user_id' => 'required|exists:users,id',
             'products.*.product_id' => 'required|numeric|exists:products,id',
-            'products.*.color_id' => 'required|numeric|exists:colors,id',
-            'products.*.guarantee_id' => 'required|numeric|exists:guarantees,id',
+            'products.*.color_id' => 'nullable|numeric|exists:colors,id',
+            'products.*.guarantee_id' => 'nullable|numeric|exists:guarantees,id',
             'products.*.count' => 'required|numeric',
         ]);
         if ($validator->fails()) {
