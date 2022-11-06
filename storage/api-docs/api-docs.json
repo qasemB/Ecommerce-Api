@@ -620,6 +620,88 @@
                     }
                 ]
             },
+            "put": {
+                "tags": [
+                    "Carts"
+                ],
+                "summary": "Edit cart",
+                "description": "Edit one cart. Send cart id",
+                "operationId": "editCart",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "send user id and send product objects ",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string",
+                                        "example": "11"
+                                    },
+                                    "products": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "product_id": {
+                                                    "type": "number",
+                                                    "example": "30"
+                                                },
+                                                "color_id": {
+                                                    "type": "number",
+                                                    "example": "2"
+                                                },
+                                                "guarantee_id": {
+                                                    "type": "number",
+                                                    "example": "1"
+                                                },
+                                                "count": {
+                                                    "type": "number",
+                                                    "example": "5"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "ویرایش با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
             "delete": {
                 "tags": [
                     "Carts"

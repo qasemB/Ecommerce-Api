@@ -104,6 +104,7 @@ Route::group(['prefix'=>'admin'] , function(){
             Route::get('carts','CartController@index');
             Route::post('carts','CartController@store');
             Route::get('carts/{id}','CartController@show');
+            Route::put('carts/{id}','CartController@update');
             Route::delete('carts/{id}','CartController@destroy');
         });
     });

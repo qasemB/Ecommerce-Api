@@ -76,8 +76,6 @@ class CartController extends Controller
         ], 200);
     }
 
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -197,15 +195,93 @@ class CartController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Put(
+     * path="/api/admin/carts/{id}",
+     * summary="Edit cart",
+     * description="Edit one cart. Send cart id",
+     * operationId="editCart",
+     * tags={"Carts"},
+     * security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="string")
+     *  ),
+     *  @OA\RequestBody(
+     *    required=true,
+     *    description="send user id and send product objects ",
+     *  @OA\MediaType(
+     *    mediaType="application/json",
+     *    @OA\Schema(
+     *      type = "object",
+     *      @OA\Property(property="user_id", type="string",  example="11"),
+     *      @OA\Property(property="products", type="array",
+     *          @OA\Items(type="object",
+     *              @OA\Property(property="product_id", type="number", example="30"),
+     *              @OA\Property(property="color_id", type="number", example="2"),
+     *              @OA\Property(property="guarantee_id", type="number", example="1"),
+     *              @OA\Property(property="count", type="number", example="5"),
+     *          )
+     *      ),
+     *    )
+     *   ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="ویرایش با موفقیت انجام شد"),
+     *        )
+     *     )
+     * )
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all() , [
+            'user_id' => 'required|exists:users,id',
+            'products.*.product_id' => 'required|numeric|exists:products,id',
+            'products.*.color_id' => 'nullable|numeric|exists:colors,id',
+            'products.*.guarantee_id' => 'nullable|numeric|exists:guarantees,id',
+            'products.*.count' => 'required|numeric',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+
+
+        $cart = Cart::with("items")->find($id);
+        $cart->user_id = $request['user_id'];
+        $cart->save();
+
+        $items = $cart->items;
+        $itemIds = [];
+        foreach ($items as $key => $item) {
+            array_push($itemIds, $item->id);
+        }
+
+        Item::destroy($itemIds);
+
+        $data = [];
+        foreach ($request['products'] as $key => $value) {
+            array_push($data, [
+                "cart_id"=> $cart->id,
+                "product_id"=> $value["product_id"],
+                "color_id"=> $value["color_id"],
+                "guarantee_id"=> $value["guarantee_id"],
+                "count"=> $value["count"],
+            ]);
+        }
+
+        Item::insert($data);
+
+        $thisCart = Cart::with("items")->find($cart->id);
+
+        return response()->json([
+            'data' => $thisCart,
+            'message' => 'سبد خرید با موفقیت ویرایش شد'
+        ] , 200);
     }
 
     /**
