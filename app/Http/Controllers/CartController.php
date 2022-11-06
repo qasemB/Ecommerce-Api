@@ -189,7 +189,7 @@ class CartController extends Controller
      */
     public function show($id)
     {
-        $cart = Cart::with("items")->find($id);
+        $cart = Cart::with("user", "items.product", "items.color", "items.guarantee")->find($id);
         return response()->json([
             'data' => $cart,
             'message' => 'دریافت  با موفقیت انجام شد'

@@ -451,7 +451,7 @@
                     "Carts"
                 ],
                 "summary": "Get all carts",
-                "description": "Get all carts - note: searchChar is part of user phone number",
+                "description": "Get all carts - Note: searchChar is part of user phone number",
                 "operationId": "allCarts",
                 "parameters": [
                     {
