@@ -62,6 +62,10 @@ use Illuminate\Routing\Controller as BaseController;
  *         name="Carts",
  *         description="Carts Actions"
  *   )
+ *   @OA\Tag(
+ *         name="Orders",
+ *         description="Orders Actions"
+ *   )
  */
 class Controller extends BaseController
 {

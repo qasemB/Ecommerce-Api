@@ -20,6 +20,7 @@ class CreateItemsTable extends Migration
             $table->bigInteger('color_id')->unsigned()->index();
             $table->bigInteger('guarantee_id')->unsigned()->index();
             $table->float('count');
+            $table->string('unit_price')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
 

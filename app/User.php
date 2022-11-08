@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Cart');
     }
 
+    public function orders() : HasMany
+    {
+        return $this->hasMany('App\Models\Order');
+    }
+
     public function scopeUsers($query){
         return $query->where("phone", "!=", "09110000000");
     }

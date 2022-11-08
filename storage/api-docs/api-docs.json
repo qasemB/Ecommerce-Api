@@ -1995,6 +1995,234 @@
                 ]
             }
         },
+        "/api/admin/orders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get all orders",
+                "description": "Get all orders - Note: searchChar is part of user phone number",
+                "operationId": "allOrders",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "searchChar",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "description": "search on phone number",
+                            "type": "string",
+                            "example": "0911"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Add order",
+                "description": "store one order",
+                "operationId": "addOrder",
+                "requestBody": {
+                    "description": "send cart id and other info",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "cart_id",
+                                    "delivery_id",
+                                    "address",
+                                    "phone",
+                                    "pay_card_number"
+                                ],
+                                "properties": {
+                                    "cart_id": {
+                                        "type": "number",
+                                        "example": "10"
+                                    },
+                                    "discount_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "delivery_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "test city ... 21th street"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "09120000000"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@info.co"
+                                    },
+                                    "pay_card_number": {
+                                        "type": "string",
+                                        "example": "1111000011110000"
+                                    },
+                                    "pay_bank": {
+                                        "type": "string",
+                                        "example": "test bank"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/orders/{id}": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get one order",
+                "description": "Get one order with id",
+                "operationId": "oneOrder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Delete orders",
+                "description": "Delete one order",
+                "operationId": "deleteOrder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "حذف با موفقیت انجام شد"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/permissions": {
             "get": {
                 "tags": [
@@ -3674,6 +3902,10 @@
         {
             "name": "Carts",
             "description": "Carts Actions"
+        },
+        {
+            "name": "Orders",
+            "description": "Orders Actions"
         }
     ],
     "security": [
