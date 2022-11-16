@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Discount;
 use App\Models\Item;
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -105,6 +106,7 @@ class OrderController extends Controller
      *      @OA\Property(property="address", type="string",  example="test city ... 21th street"),
      *      @OA\Property(property="phone", type="string",  example="09120000000"),
      *      @OA\Property(property="email", type="string",  example="test@info.co"),
+     *      @OA\Property(property="pay_at", type="string",  example="2022-08-01"),
      *      @OA\Property(property="pay_card_number", type="string",  example="1111000011110000"),
      *      @OA\Property(property="pay_bank", type="string",  example="test bank"),
      *    )
@@ -128,6 +130,7 @@ class OrderController extends Controller
             'address' => 'required|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/',
             'phone' => 'required|numeric',
             'email' => 'nullable|email',
+            'pay_at' => 'nullable|date' ,
             'pay_card_number' => 'required|numeric|digits:16',
             'pay_bank' => 'nullable|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/',
         ]);
@@ -163,6 +166,7 @@ class OrderController extends Controller
         $order->phone = $request['phone'];
         $order->email = $request['email'];
         $order->pay_amount = $amount - $discountPrice;
+        $order->pay_at = $request['pay_at'] ?  $request['pay_at'] : Carbon::now();
         $order->pay_card_number = $request['pay_card_number'];
         $order->pay_bank = $request['pay_bank'];
         $order->save();

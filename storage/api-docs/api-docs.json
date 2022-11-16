@@ -1617,6 +1617,47 @@
             }
         },
         "/api/admin/discounts/{id}": {
+            "get": {
+                "tags": [
+                    "Discounts"
+                ],
+                "summary": "Get one discount",
+                "description": "Get one discount with id",
+                "operationId": "oneDiscount",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
             "put": {
                 "tags": [
                     "Discounts"
@@ -2099,6 +2140,10 @@
                                     "email": {
                                         "type": "string",
                                         "example": "test@info.co"
+                                    },
+                                    "pay_at": {
+                                        "type": "string",
+                                        "example": "2022-08-01"
                                     },
                                     "pay_card_number": {
                                         "type": "string",

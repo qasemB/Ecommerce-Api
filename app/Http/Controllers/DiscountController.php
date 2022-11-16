@@ -111,6 +111,38 @@ class DiscountController extends Controller
 
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/admin/discounts/{id}",
+     *      summary="Get one discount",
+     *      description="Get one discount with id",
+     *      operationId="oneDiscount",
+     *      tags={"Discounts"},
+     *      security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="number")
+     *  ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *      @OA\Property(property="data", type="string", example="{...}")
+     *   )
+     *  )
+     * )
+     */
+    public function show($id)
+    {
+        $cart = Discount::find($id);
+        return response()->json([
+            'data' => $cart,
+            'message' => 'دریافت  با موفقیت انجام شد'
+        ], 200);
+    }
+
 
     /**
      * Update the specified resource in storage.
