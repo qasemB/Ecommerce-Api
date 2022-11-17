@@ -131,7 +131,7 @@ class OrderController extends Controller
             'phone' => 'required|numeric',
             'email' => 'nullable|email',
             'pay_at' => 'nullable|date' ,
-            'pay_card_number' => 'required|numeric|digits:16',
+            'pay_card_number' => 'numeric|digits:16',
             'pay_bank' => 'nullable|regex:/^[a-zA-z0-9\-0-9ء-ئ., ؟!:.،\n آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ\s]+$/',
         ]);
         if ($validator->fails()) {
@@ -166,7 +166,7 @@ class OrderController extends Controller
         $order->phone = $request['phone'];
         $order->email = $request['email'];
         $order->pay_amount = $amount - $discountPrice;
-        $order->pay_at = $request['pay_at'] ?  $request['pay_at'] : Carbon::now();
+        $order->pay_at = $request['pay_at'];
         $order->pay_card_number = $request['pay_card_number'];
         $order->pay_bank = $request['pay_bank'];
         $order->save();
@@ -268,6 +268,93 @@ class OrderController extends Controller
         Order::destroy($id);
         return response()->json([
             'message' => 'سفارش با موفقیت حذف شد'
+        ] , 200);
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/api/admin/orders/orders_statistics",
+     *      summary="Get orders statistics",
+     *      description="Get orders statistics",
+     *      operationId="ordersStatistics",
+     *      tags={"Orders"},
+     *      security={ {"bearer_token": {} }},
+     *  @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *      @OA\Property(property="data", type="string", example="{...}")
+     *   )
+     *  )
+     * )
+     */
+    public function getOrdersStatistics()
+    {
+        $todayCarts = Cart::where('created_at', '>=', Carbon::now())->count();
+        $lastweekCarts = Cart::where('created_at', '>=', Carbon::now()->subDays(7))->count();
+        $lastMonthCarts = Cart::where('created_at', '>=', Carbon::now()->subDays(30))->count();
+
+        $todayPendingOrders = Order::where('created_at', '>=', Carbon::now())->where('pay_at', '=', null)->count();
+        $lastweekPendingOrders = Order::where('created_at', '>=', Carbon::now()->subDays(7))->where('pay_at', '=', null)->count();
+        $lastMonthPendingOrders = Order::where('created_at', '>=', Carbon::now()->subDays(30))->where('pay_at', '=', null)->count();
+
+        $todaySuccessOrders = Order::where('pay_at', '>=', Carbon::now())->count();
+        $lastweekSuccessOrders = Order::where('pay_at', '>=', Carbon::now()->subDays(7))->count();
+        $lastMonthSuccessOrders = Order::where('pay_at', '>=', Carbon::now()->subDays(30))->count();
+
+        $todaySuccessOrdersAmount = Order::where('pay_at', '>=', Carbon::now())->sum('pay_amount');
+        $lastweekSuccessOrdersAmount = Order::where('pay_at', '>=', Carbon::now()->subDays(7))->sum('pay_amount');
+        $lastMonthSuccessOrdersAmount = Order::where('pay_at', '>=', Carbon::now()->subDays(30))->sum('pay_amount');
+        return response()->json([
+            'data' => [
+                'carts' => [
+                    'today' => $todayCarts,
+                    'thisWeek' => $lastweekCarts,
+                    'thisMonth' => $lastMonthCarts,
+                ],
+                'pendingOrders' => [
+                    'today' => $todayPendingOrders,
+                    'thisWeek' => $lastweekPendingOrders,
+                    'thisMonth' => $lastMonthPendingOrders,
+                ],
+                'successOrders' => [
+                    'today' => $todaySuccessOrders,
+                    'thisWeek' => $lastweekSuccessOrders,
+                    'thisMonth' => $lastMonthSuccessOrders,
+                ],
+                'successOrdersAmount' => [
+                    'today' => $todaySuccessOrdersAmount,
+                    'thisWeek' => $lastweekSuccessOrdersAmount,
+                    'thisMonth' => $lastMonthSuccessOrdersAmount,
+                ],
+            ],
+            'message' => 'اطلاعات با موفقیت دریافت شد'
+        ] , 200);
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/api/admin/orders/this_year_orders",
+     *      summary="Get this year orders",
+     *      description="Get this year orders",
+     *      operationId="thisYearorders",
+     *      tags={"Orders"},
+     *      security={ {"bearer_token": {} }},
+     *  @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *      @OA\Property(property="data", type="string", example="{...}")
+     *   )
+     *  )
+     * )
+     */
+    public function getThisYearOrders()
+    {
+        $orders = Order::select('id', 'pay_at', 'pay_amount')->where('pay_at', '>=', Carbon::now()->subDays(365))->get();
+        return response()->json([
+            'data' => $orders,
+            'message' => 'اطلاعات با موفقیت دریافت شد'
         ] , 200);
     }
 }

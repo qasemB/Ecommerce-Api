@@ -110,6 +110,8 @@ Route::group(['prefix'=>'admin'] , function(){
             Route::put('carts/{id}','CartController@update');
             Route::delete('carts/{id}','CartController@destroy');
 
+            Route::get('orders/orders_statistics','OrderController@getOrdersStatistics');
+            Route::get('orders/this_year_orders','OrderController@getThisYearOrders');
             Route::get('orders','OrderController@index');
             Route::post('orders','OrderController@store');
             Route::get('orders/{id}','OrderController@show');

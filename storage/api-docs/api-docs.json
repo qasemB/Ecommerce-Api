@@ -2268,6 +2268,72 @@
                 ]
             }
         },
+        "/api/admin/orders/orders_statistics": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get orders statistics",
+                "description": "Get orders statistics",
+                "operationId": "ordersStatistics",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/orders/this_year_orders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get this year orders",
+                "description": "Get this year orders",
+                "operationId": "thisYearorders",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/permissions": {
             "get": {
                 "tags": [
