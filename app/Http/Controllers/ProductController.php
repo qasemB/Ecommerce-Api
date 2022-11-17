@@ -693,4 +693,77 @@ class ProductController extends Controller
             'message' => $productsCount > 0 ? "تعداد $productsCount محصول دریافت شد" : "فعلا محصولی ایجاد نشده است"
         ], 200);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    /**
+     * @OA\Get(
+     *  path="/api/admin/products/fewer_products",
+     *  summary="Get fewer products",
+     *  description="get all fewer products",
+     *  operationId="getFewerProducts",
+     *  tags={"Products"},
+     *  security={ {"bearer_token": {} }},
+     *  @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="data", type="string", example="[{}, {}]")
+     *     )
+     *  )
+     * )
+     * @return JsonResponse
+     */
+    public function getFewerProducts(): JsonResponse
+    {
+        $products = Product::with('categories')->where('stock', '<', 5)->get();
+        $productsCount = sizeof($products);
+        return response()->json([
+            'data' => $products,
+            'message' => $productsCount > 0 ? "تعداد $productsCount محصول رو به اتمام است" : "فعلا محصولی رو به اتمام نیست"
+        ], 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    /**
+     * @OA\Get(
+     *  path="/api/admin/products/toggle_notification/{id}",
+     *  summary="Ignore notification",
+     *  description="Ignore product notification",
+     *  operationId="ignoreProductNotification",
+     *  tags={"Products"},
+     *  security={ {"bearer_token": {} }},
+     *  @OA\Parameter(
+     *      in="path",
+     *      name="id",
+     *      required=true,
+     *      @OA\Schema(type="number")
+     *  ),
+     *   @OA\Response(
+     *    response=200,
+     *    description="success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="data", type="string", example="[{}, {}]")
+     *     )
+     *  )
+     * )
+     * @return JsonResponse
+     */
+    public function toggleNotification(int $id): JsonResponse
+    {
+        $product = Product::find($id);
+        $product->has_notification = !$product->has_notification;
+        $product->save();
+        return response()->json([
+            'data' => $product->has_notification,
+            'message' => $product->has_notification ? "فعال شد" : "غیر فعال شد"
+        ], 200);
+    }
 }

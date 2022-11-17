@@ -48,6 +48,8 @@ Route::group(['prefix'=>'admin'] , function(){
 
             Route::get('products','ProductController@index');
             Route::get('products/all_titles','ProductController@getAllTitles');
+            Route::get('products/fewer_products','ProductController@getFewerProducts');
+            Route::get('products/toggle_notification/{id}','ProductController@toggleNotification');
             Route::post('products','ProductController@store');
             Route::get('products/{id}','ProductController@show');
             Route::get('products/title_is_exist/{title}','ProductController@titleIsExist');

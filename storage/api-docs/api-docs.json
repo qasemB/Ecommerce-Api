@@ -2997,6 +2997,82 @@
                 ]
             }
         },
+        "/api/admin/products/fewer_products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get fewer products",
+                "description": "get all fewer products",
+                "operationId": "getFewerProducts",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/products/toggle_notification/{id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Ignore notification",
+                "description": "Ignore product notification",
+                "operationId": "ignoreProductNotification",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[{}, {}]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/admin/categories/{categoryId}/attributes": {
             "get": {
                 "tags": [

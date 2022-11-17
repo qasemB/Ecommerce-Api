@@ -25,12 +25,13 @@ class CreateProductsTable extends Migration
             $table->text('image')->nullable();
             $table->string('alt_image')->nullable();
             $table->text('keywords')->nullable();
-            $table->integer('stock')->nullable();
+            $table->integer('stock')->default(0);
             $table->integer('discount')->nullable();
             $table->timestamp('start_special_at')->nullable();
             $table->timestamp('end_special_at')->nullable();
             $table->boolean('only_us')->default(false);
             $table->boolean('is_active')->default(true);
+            $table->boolean('has_notification')->default(true);
             $table->bigInteger('view_count')->default(0);
             $table->bigInteger('like_count')->default(0);
             $table->bigInteger('dislike_count')->default(0);
