@@ -719,7 +719,7 @@ class ProductController extends Controller
      */
     public function getFewerProducts(): JsonResponse
     {
-        $products = Product::with('categories')->where('stock', '<', 5)->get();
+        $products = Product::with('categories')->where('stock', '<', 5)->where('has_notification', 1)->get();
         $productsCount = sizeof($products);
         return response()->json([
             'data' => $products,
