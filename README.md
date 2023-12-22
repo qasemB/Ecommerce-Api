@@ -1,5 +1,5 @@
 <h1>This project is updated to Laravel 10 : <a href="https://github.com/qasemB/ecommerce_laravel10">https://github.com/qasemB/ecommerce_laravel10</a> </h1>
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+<p align="center"><img src="https://laravel.com/img/logotype.min.svg" width="400"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
